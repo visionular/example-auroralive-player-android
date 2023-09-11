@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.visionular.auroralive.player.sample'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.visionular.auroralive.player.sample"
         minSdk 21
-        targetSdk 32
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -35,7 +35,7 @@ android {
 
 dependencies {
 
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'] )
+    // implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'] )
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20"
     implementation 'androidx.core:core-ktx:1.10.1'
