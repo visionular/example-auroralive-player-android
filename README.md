@@ -1,6 +1,10 @@
 # example-auroralive-player-android
 A sample app which use the AuroraLive Player Android SDK.
 
+## Docs
+
+Source Docs: https://docs.visionular.com/auroralive/playersdk/android/
+
 ## Install SDK
 
 ```
