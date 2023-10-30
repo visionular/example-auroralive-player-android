@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Aurora Live Demo</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="entry_live_frag_label">Entry Live</string>
+    <string name="live_frag_label">Live</string>
+</resources>

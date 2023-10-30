@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LiveFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/debug_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/version_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="version: "
+                />
+
+            <TextView
+                android:id="@+id/size_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="size: 0x0"
+                />
+            <TextView
+                android:id="@+id/fps_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FPS: 0"
+                />
+            <TextView
+                android:id="@+id/pkt_lost_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pkt lost: 0"
+                />
+            <TextView
+                android:id="@+id/bitrate_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bitrate: 0kb/s"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/layer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="layer: "
+                />
+            <Spinner
+                android:id="@+id/layer_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <org.webrtc.SurfaceViewRenderer
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/debug_layout"
+        android:visibility="invisible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

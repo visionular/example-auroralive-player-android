@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/EntryLiveFragment">
+
+    <fragment
+        android:id="@+id/EntryLiveFragment"
+        android:name="com.visionular.auroralive.demo.EntryLiveFragment"
+        android:label="@string/entry_live_frag_label"
+        tools:layout="@layout/entry_live_frag">
+
+        <action
+            android:id="@+id/action_EntryLiveFragment_to_LiveFragment"
+            app:destination="@id/LiveFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/LiveFragment"
+        android:name="com.visionular.auroralive.demo.LiveFragment"
+        android:label="@string/live_frag_label"
+        tools:layout="@layout/live_frag">
+
+        <argument
+            android:name="playbackId"
+            app:argType="string"
+            app:nullable="false"
+            />
+
+        <argument
+            android:name="token"
+            app:argType="string"
+            app:nullable="true"
+            />
+
+        <action
+            android:id="@+id/action_LiveFragment_to_EntryLiveFragment"
+            app:destination="@id/EntryLiveFragment" />
+    </fragment>
+</navigation>
