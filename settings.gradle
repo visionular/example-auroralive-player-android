@@ -12,5 +12,10 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "AuroraLivePlayerAndroidSample"
-include ':app'
+rootProject.name = "auroralive"
+include ':demo'
+//include ':libwebrtc'
+//project(':libwebrtc').projectDir = new File('../libwebrtc')
+//include ':auroralive'
+//project(':auroralive').projectDir = new File('../auroralive')
+
