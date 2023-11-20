@@ -22,36 +22,113 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" "
+                />
+            <TextView
                 android:id="@+id/version_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="version: "
+                android:text="Version: "
                 />
 
             <TextView
-                android:id="@+id/size_text"
+                android:id="@+id/current_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="size: 0x0"
+                android:text="Client Time: "
                 />
+
+            <TextView
+                android:id="@+id/dimension_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resolution: 0x0"
+                />
+
+            <TextView
+                android:id="@+id/signal_cost_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Signal Cost: "
+                />
+
+            <TextView
+                android:id="@+id/first_frame_render_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Frame Render: "
+                />
+
             <TextView
                 android:id="@+id/fps_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FPS: 0"
-                />
-            <TextView
-                android:id="@+id/pkt_lost_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="pkt lost: 0"
+                android:text="Render fps: 0"
                 />
             <TextView
                 android:id="@+id/bitrate_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="bitrate: 0kb/s"
+                android:text="Bitrate: 0 kbits/sec"
                 />
+            <TextView
+                android:id="@+id/pts_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PTS: 0"
+                />
+            <TextView
+                android:id="@+id/jb_ms_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JB Ms: 0ms"
+                />
+            <TextView
+                android:id="@+id/key_frame_num_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keyframe Count: "
+                />
+            <TextView
+                android:id="@+id/pli_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PLI Count: "
+                />
+            <TextView
+                android:id="@+id/nack_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NACK Count: "
+                />
+            <TextView
+                android:id="@+id/freeze_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Freeze: "
+                />
+            <TextView
+                android:id="@+id/packets_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Packets: "
+                />
+            <TextView
+                android:id="@+id/pkt_lost_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Packet loss: 0"
+                />
+            <TextView
+                android:id="@+id/rtt_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RTT: 0"
+                />
+
 
         </LinearLayout>
 
@@ -65,7 +142,7 @@
                 android:id="@+id/layer_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="layer: "
+                android:text="Layer: "
                 />
             <Spinner
                 android:id="@+id/layer_spinner"

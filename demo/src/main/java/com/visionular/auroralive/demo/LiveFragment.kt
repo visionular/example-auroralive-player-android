@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Timer
 import java.util.TimerTask
+import java.time.LocalDateTime
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -33,6 +34,9 @@ class LiveFragment : Fragment(), AuroraLivePlayer.Listener, AdapterView.OnItemSe
     private lateinit var playbackId: String
     private lateinit var statsTimer: Timer
     private var lastBytesRecv: Long = 0
+    private var firstFrameRenderedCost: Long = 0
+    private var signalCost: Long = 0
+    private var startPlayTimestamp: Long = 0
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -57,10 +61,11 @@ class LiveFragment : Fragment(), AuroraLivePlayer.Listener, AdapterView.OnItemSe
             renderer = binding.videoView
         }
 
-        binding.versionText.text = "version: ${AuroraLivePlayer.VERSION}"
+        binding.versionText.text = "Version: ${AuroraLivePlayer.VERSION}"
         binding.layerSpinner.onItemSelectedListener = this
 
         lifecycleScope.launch {
+            startPlayTimestamp = System.currentTimeMillis()
             auroraLive.play(playbackId, token)
         }
 
@@ -77,12 +82,18 @@ class LiveFragment : Fragment(), AuroraLivePlayer.Listener, AdapterView.OnItemSe
 
         auroraLive.close()
         lastBytesRecv = 0
-
         _binding = null
     }
 
     override fun onPlayerError(msg: String) {
         Toast.makeText(this.context, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onFirstVideoFrameRendered() {
+        firstFrameRenderedCost = System.currentTimeMillis() - startPlayTimestamp
+        lifecycleScope.launch(Dispatchers.Main) {
+            binding.firstFrameRenderText.text = "First Frame Render: ${firstFrameRenderedCost} ms"
+        }
     }
 
     override fun onPlaybackSuccess(streamInfo: AuroraLivePlayer.StreamInfo) {
@@ -100,6 +111,8 @@ class LiveFragment : Fragment(), AuroraLivePlayer.Listener, AdapterView.OnItemSe
             binding.layerSpinner.adapter = ArrayAdapter(context!!, R.layout.layer_spinner_item, listOf(AuroraLivePlayer.AuroraLiveVideoLayer("unknown", "u")))
         }
         binding.layerSpinner.visibility = View.VISIBLE
+        signalCost = System.currentTimeMillis() - startPlayTimestamp
+        binding.signalCostText.text = "Signal Cost: ${signalCost} ms"
 
         statsTimer = Timer()
         statsTimer.schedule(object: TimerTask() {
@@ -119,10 +132,19 @@ class LiveFragment : Fragment(), AuroraLivePlayer.Listener, AdapterView.OnItemSe
 
     override fun onRequestStats(stats: AuroraLivePlayer.Stats) {
         lifecycleScope.launch(Dispatchers.Main) {
-            binding.pktLostText.text = "pkt lost: ${stats.videoPacketsLost + stats.audioPacketsLost}"
-            binding.sizeText.text = "size: ${stats.videoWidth}x${stats.videoHeight}"
-            //binding.fpsText.text = "fps: ${stats.videoFps}"
-            binding.bitrateText.text = "bitrate: ${(stats.audioBytesReceived + stats.videoBytesReceived - lastBytesRecv) * 8 / 1000 }kb/s"
+            binding.currentTimeText.text = "Client Time: ${LocalDateTime.now()}"
+            binding.dimensionText.text = "Resolution: ${stats.videoWidth}x${stats.videoHeight}"
+            binding.fpsText.text = "Fps: ${stats.videoFps}"
+            binding.bitrateText.text = "Bitrate: ${(stats.audioBytesReceived + stats.videoBytesReceived - lastBytesRecv) * 8 / 1000 } kbits/sec"
+            binding.ptsText.text = "PTS: ${stats.lastPacketReceivedTimestamp.toBigDecimal().toPlainString()}"
+            binding.jbMsText.text = "JB Ms: ${stats.jitterBufferMs} ms"
+            binding.keyFrameNumText.text = "Keyframe: ${stats.keyFrameCount}"
+            binding.pliCountText.text = "PLI: ${stats.pliCount}"
+            binding.nackCountText.text = "NACK: ${stats.nackCount}"
+            binding.freezeText.text = "Freeze: ${stats.freezeCount} ${stats.freezeDuration} s"
+            binding.packetsText.text = "Packets: ${stats.videoPacketsReceived+stats.audioPacketsReceived}"
+            binding.pktLostText.text = "Packet Loss: A=${stats.audioPacketsLost}, V=${stats.videoPacketsLost}"
+            binding.rttText.text = "RTT: ${stats.rtt} ms"
             lastBytesRecv = stats.audioBytesReceived + stats.videoBytesReceived
         }
     }
