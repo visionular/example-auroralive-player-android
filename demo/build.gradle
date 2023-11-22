@@ -47,8 +47,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.0'
 
     //implementation project(":auroralive")
-    //implementation project(":libwebrtc")
-    implementation 'com.visionular:auroralive-player:1.0.2'
+    implementation 'com.visionular:auroralive-player:1.0.4'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-     implementation 'com.visionular:auroralive-player:1.0.0'
+     implementation 'com.visionular:auroralive-player:1.0.4'
 }
 
 ```
