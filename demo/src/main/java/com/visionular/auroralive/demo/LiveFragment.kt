@@ -130,9 +130,24 @@ class LiveFragment : Fragment(), AuroraLivePlayer.Listener, AdapterView.OnItemSe
         Toast.makeText(this.context, "switch layer error: $msg", Toast.LENGTH_LONG).show()
     }
 
+    private fun getDuration(second: Long) : String{
+        if(second < 60){
+            return "$second s"
+        }else if(second < 60*60){
+            return "${second/60} min ${second%60} s"
+        }else if(second < 24*60*60){
+            return "${second/3600} hour ${(second%3600)/60} min ${(second%3600)%60} s"
+        }else if(second < 240*60*60){
+            return "${second/(24*3600)} day ${(second%(24*3600))/3600} hour ${(second%(24*3600))%3600/60} min ${(second%(24*3600))%3600%60} s"
+        }
+        else{
+            return "> 10 day"
+        }
+    }
+
     override fun onRequestStats(stats: AuroraLivePlayer.Stats) {
         lifecycleScope.launch(Dispatchers.Main) {
-            binding.currentTimeText.text = "Client Time: ${LocalDateTime.now()}"
+            binding.currentTimeText.text = "Client Time: ${LocalDateTime.now()} Duration:${getDuration((System.currentTimeMillis() - startPlayTimestamp)/1000)}"
             binding.dimensionText.text = "Resolution: ${stats.videoWidth}x${stats.videoHeight}"
             binding.fpsText.text = "Fps: ${stats.videoFps}"
             binding.bitrateText.text = "Bitrate: ${(stats.audioBytesReceived + stats.videoBytesReceived - lastBytesRecv) * 8 / 1000 } kbits/sec"
