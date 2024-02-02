@@ -57,7 +57,7 @@ class LiveFragment : Fragment(), AuroraLivePlayer.Listener, AdapterView.OnItemSe
 
         playbackId = _args.playbackId
         val token = _args.token
-        auroraLive = AuroraLivePlayer(context!!.applicationContext, this).apply {
+        auroraLive = AuroraLivePlayer(requireContext().applicationContext, this).apply {
             renderer = binding.videoView
         }
 
@@ -102,13 +102,13 @@ class LiveFragment : Fragment(), AuroraLivePlayer.Listener, AdapterView.OnItemSe
         val layerList = ArrayList<AuroraLivePlayer.AuroraLiveVideoLayer>()
         if(videoLayersInfo != null){
             var currentPos = videoLayersInfo.current;
-            videoLayersInfo.layers.forEachIndexed{ index, item ->
+            videoLayersInfo.layers.forEachIndexed{ _, item ->
                 layerList.add(AuroraLivePlayer.AuroraLiveVideoLayer("${item.width}"+"x"+"${item.height}", item.rid))
             }
-            binding.layerSpinner.adapter = ArrayAdapter(context!!, R.layout.layer_spinner_item, layerList)
+            binding.layerSpinner.adapter = ArrayAdapter(requireContext(), R.layout.layer_spinner_item, layerList)
             binding.layerSpinner.setSelection(currentPos)
         }else{
-            binding.layerSpinner.adapter = ArrayAdapter(context!!, R.layout.layer_spinner_item, listOf(AuroraLivePlayer.AuroraLiveVideoLayer("unknown", "u")))
+            binding.layerSpinner.adapter = ArrayAdapter(requireContext(), R.layout.layer_spinner_item, listOf(AuroraLivePlayer.AuroraLiveVideoLayer("unknown", "u")))
         }
         binding.layerSpinner.visibility = View.VISIBLE
         signalCost = System.currentTimeMillis() - startPlayTimestamp
