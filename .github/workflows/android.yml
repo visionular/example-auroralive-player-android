@@ -25,7 +25,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Move dir
-      run: mv demo/build/outputs/apk/debug/demo-debug.apk AuroraLivePlayerDemo_$GITHUB_REF_NAME.apk
+      run: mv demo/build/outputs/apk/debug/demo-debug.apk visionular-AuroraLivePlayerDemo_$GITHUB_REF_NAME.apk
     - name: Deploy to Package
       uses: ncipollo/release-action@v1
       with:
